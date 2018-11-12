@@ -3,25 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    CharacterController characterController;
-    float lastRotation = 0.0f;
+    public float playerMoveSpeed = 2.0f;
+    public float flipDuration = 1.0f;
+    public float flipPower = 5.0f;
 
-	// Use this for initialization
-	void Start () {
+    private bool flipping = false;
+    private float flipTimer = 0.0f;
+
+    private CharacterController characterController;
+    private float lastRotation = 0.0f;
+    private float horizontal = 0.0f;
+    private float vertical = 0.0f;
+
+    // Use this for initialization
+    void Start () {
         characterController = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
         float rotation = GetRotation(horizontal, vertical);
+
+        if (flipping)
+        {
+            EndShot();
+        } else if (Input.GetButton("Fire1"))
+        {
+            TakeShot();
+        }
 
         if (horizontal != 0 || vertical != 0)
         {
-            // transform.Translate(Vector2.up * Time.deltaTime);
-            Vector3 movement = new Vector3(horizontal, vertical);
-            characterController.Move(movement * Time.deltaTime);
+            transform.Translate(Vector2.up * playerMoveSpeed * Time.deltaTime);
+            // Vector3 movement = new Vector3(horizontal, vertical);
+            // characterController.Move(movement * Time.deltaTime);
         } else
         {
             rotation = lastRotation;
@@ -29,6 +46,23 @@ public class PlayerController : MonoBehaviour {
 
         transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
         lastRotation = rotation;
+    }
+
+    private void TakeShot()
+    {
+        flipTimer = flipDuration;
+        flipping = true;
+        GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    private void EndShot()
+    {
+        flipTimer -= Time.deltaTime;
+        if (flipTimer <= 0.0f)
+        {
+            flipping = false;
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
     private float GetRotation(float horizontal, float vertical)
@@ -55,18 +89,16 @@ public class PlayerController : MonoBehaviour {
         return rotation;
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log(hit);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(collision.name);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.collider.name);
+        if (collision.collider.tag == "Ball" && flipping)
+        {
+            if (flipping)
+            {
+                Vector2 hitDirection = new Vector2(horizontal, vertical);
+                Debug.Log(hitDirection * flipPower);
+                collision.collider.GetComponent<Rigidbody2D>().AddForce(hitDirection * flipPower);
+            }
+        }
     }
 }
