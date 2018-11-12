@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour {
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rigid;
 
 	// Use this for initialization
 	void Start () {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (rigidbody.velocity.x != 0 || rigidbody.velocity.y != 0)
+        if (rigid.velocity.x != 0 || rigid.velocity.y != 0)
         {
             // Custom drag
-            rigidbody.velocity *= 0.9f;
+            rigid.velocity *= 0.9f;
         }
 	}
 

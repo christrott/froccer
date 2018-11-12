@@ -15,9 +15,12 @@ public class PlayerController : MonoBehaviour {
     private float horizontal = 0.0f;
     private float vertical = 0.0f;
 
+    private Animator animator;
+
     // Use this for initialization
     void Start () {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -29,7 +32,8 @@ public class PlayerController : MonoBehaviour {
         if (flipping)
         {
             EndShot();
-        } else if (Input.GetButton("Fire1"))
+        }
+        else if (Input.GetButton("Fire1"))
         {
             TakeShot();
         }
@@ -37,10 +41,11 @@ public class PlayerController : MonoBehaviour {
         if (horizontal != 0 || vertical != 0)
         {
             transform.Translate(Vector2.up * playerMoveSpeed * Time.deltaTime);
-            // Vector3 movement = new Vector3(horizontal, vertical);
-            // characterController.Move(movement * Time.deltaTime);
-        } else
+            animator.SetTrigger("isMoving");
+        }
+        else
         {
+            animator.ResetTrigger("isMoving");
             rotation = lastRotation;
         }
 
@@ -96,7 +101,6 @@ public class PlayerController : MonoBehaviour {
             if (flipping)
             {
                 Vector2 hitDirection = new Vector2(horizontal, vertical);
-                Debug.Log(hitDirection * flipPower);
                 collision.collider.GetComponent<Rigidbody2D>().AddForce(hitDirection * flipPower);
             }
         }
