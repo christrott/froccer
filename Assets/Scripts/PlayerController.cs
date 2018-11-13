@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float playerMoveSpeed = 2.0f;
-    public float flipDuration = 1.0f;
+    public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
 
     private bool flipping = false;
@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour {
 
     private void TakeShot()
     {
+        animator.SetTrigger("isFlipping");
         flipTimer = flipDuration;
         flipping = true;
         GetComponent<SpriteRenderer>().color = Color.red;
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour {
         flipTimer -= Time.deltaTime;
         if (flipTimer <= 0.0f)
         {
+            animator.ResetTrigger("isFlipping");
             flipping = false;
             GetComponent<SpriteRenderer>().color = Color.white;
         }
