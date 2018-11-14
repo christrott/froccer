@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour {
         animator.SetTrigger("isFlipping");
         flipTimer = flipDuration;
         flipping = true;
-        GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     private void EndShot()
@@ -68,7 +67,6 @@ public class PlayerController : MonoBehaviour {
         {
             animator.ResetTrigger("isFlipping");
             flipping = false;
-            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
