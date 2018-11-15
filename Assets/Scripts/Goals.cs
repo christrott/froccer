@@ -20,8 +20,19 @@ public class Goals : MonoBehaviour {
         if (collider.tag == "Ball")
         {
             Debug.Log("Goal!");
-            collider.transform.position = centreCircle;
-            collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,0.0f);
+            GetComponent<ParticleSystem>().Emit(30);
+            StartCoroutine("ResetField", collider);
         }
+    }
+
+    private IEnumerator ResetField(Collider2D collider)
+    {
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+        while(particleSystem.IsAlive())
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        collider.transform.position = centreCircle;
+        collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
     }
 }
