@@ -175,8 +175,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1950516765
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1345,6 +1345,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 212711880738709384, guid: 7b511efd2d42e8948bb8c2b4617f18b8,
+        type: 2}
+      propertyPath: m_SortingLayerID
+      value: 1315263411
+      objectReference: {fileID: 0}
+    - target: {fileID: 212711880738709384, guid: 7b511efd2d42e8948bb8c2b4617f18b8,
+        type: 2}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b511efd2d42e8948bb8c2b4617f18b8, type: 2}
   m_IsPrefabAsset: 0
@@ -1433,6 +1443,16 @@ Prefab:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212578501984490356, guid: 0d84315a8f39afc4ea34949a366395f7,
+        type: 2}
+      propertyPath: m_SortingLayerID
+      value: 1315263411
+      objectReference: {fileID: 0}
+    - target: {fileID: 212578501984490356, guid: 0d84315a8f39afc4ea34949a366395f7,
+        type: 2}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d84315a8f39afc4ea34949a366395f7, type: 2}
   m_IsPrefabAsset: 0
@@ -1479,6 +1499,16 @@ Prefab:
         type: 2}
       propertyPath: m_Mass
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212853595054360194, guid: defc47e613b802e4795f5cdedee576ba,
+        type: 2}
+      propertyPath: m_SortingLayerID
+      value: 1315263411
+      objectReference: {fileID: 0}
+    - target: {fileID: 212853595054360194, guid: defc47e613b802e4795f5cdedee576ba,
+        type: 2}
+      propertyPath: m_SortingLayer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: defc47e613b802e4795f5cdedee576ba, type: 2}

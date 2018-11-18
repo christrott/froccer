@@ -42,3 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1950516765
+    locked: 0
+  - name: PlayArea
+    uniqueID: 1315263411
+    locked: 0
+  - name: Overlay
+    uniqueID: 1630767747
+    locked: 0
