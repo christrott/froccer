@@ -2771,6 +2771,11 @@ Prefab:
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114195809989195598, guid: 0d84315a8f39afc4ea34949a366395f7,
+        type: 2}
+      propertyPath: flipMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d84315a8f39afc4ea34949a366395f7, type: 2}
   m_IsPrefabAsset: 0

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
     public float playerMoveSpeed = 2.0f;
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
+    public float flipMoveSpeed = 3.0f;
 
     private Vector2 startPos;
     private bool flipping = false;
@@ -42,6 +43,10 @@ public class PlayerController : MonoBehaviour {
 
         if (horizontal != 0 || vertical != 0)
         {
+            if (flipping)
+            {
+                transform.Translate(Vector2.up * flipMoveSpeed * Time.deltaTime);
+            }
             transform.Translate(Vector2.up * playerMoveSpeed * Time.deltaTime);
             animator.SetTrigger("isMoving");
         }
