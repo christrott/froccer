@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
 
+    private Vector2 startPos;
     private bool flipping = false;
     private float flipTimer = 0.0f;
 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        startPos = transform.position;
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 	}
@@ -51,6 +53,11 @@ public class PlayerController : MonoBehaviour {
 
         transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
         lastRotation = rotation;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = startPos;
     }
 
     private void TakeShot()

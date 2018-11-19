@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Goals : MonoBehaviour {
     public Vector2 centreCircle;
+    public GameObject gameState;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +35,6 @@ public class Goals : MonoBehaviour {
         }
         collider.transform.position = centreCircle;
         collider.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        collider.GetComponent<Rigidbody2D>().rotation = 0.0f;
+        gameState.GetComponent<GameState>().UpdateState(States.GOAL);
     }
 }

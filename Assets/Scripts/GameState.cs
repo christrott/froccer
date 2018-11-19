@@ -6,12 +6,16 @@ public enum States
 {
     PLAYING,
     GOAL,
+    OOB,
     RUSH,
     OVERTIME
 }
 
 public class GameState : MonoBehaviour {
-    States gameState;
+    public GameObject player1;
+    public GameObject player2;
+    public States gameState;
+    
     private float _timer;
 
     public float Timer
@@ -22,26 +26,53 @@ public class GameState : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+    {
+        _timer = 300.0f;
         gameState = States.PLAYING;
 	}
-	
-	public void UpdateState(States newState)
+
+    void Update()
     {
+        if (gameState == States.PLAYING)
+        {
+            if (_timer < 5.0f)
+            {
+                _timer -= Time.deltaTime * 0.75f;
+            }
+            else
+            {
+                _timer -= Time.deltaTime;
+            }
+        }
+    }
+
+    public void UpdateState(States newState)
+    {
+        States oldState = gameState;
+        gameState = newState;
+
         switch (newState)
         {
             case States.PLAYING:
-                // Resume Timer
                 break;
             case States.GOAL:
-                ResetPlayState();
+                GoalScored();
                 break;
         }
-        gameState = newState;
     }
 
-    private void ResetPlayState()
+    private void GoalScored()
     {
+        ResetPlayers();
+        // Do some reset fanciness
+        // Display score
+        UpdateState(States.PLAYING);
+    }
 
+    private void ResetPlayers()
+    {
+        player1.GetComponent<PlayerController>().ResetPosition();
+        player2.GetComponent<PlayerController>().ResetPosition();
     }
 }
