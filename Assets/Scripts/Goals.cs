@@ -7,7 +7,7 @@ public class Goals : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        centreCircle = FindObjectOfType<Ball>().transform.position;
 	}
 	
 	// Update is called once per frame
@@ -33,6 +33,7 @@ public class Goals : MonoBehaviour {
             yield return new WaitForSeconds(0.2f);
         }
         collider.transform.position = centreCircle;
-        collider.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+        collider.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        collider.GetComponent<Rigidbody2D>().rotation = 0.0f;
     }
 }
