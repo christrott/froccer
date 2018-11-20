@@ -84,14 +84,12 @@ public class GameState : MonoBehaviour {
     {
         // Do some reset fanciness
         // Display callout
-        UpdateState(States.PLAYING, null);
     }
 
     private IEnumerator OobReset(string playerSide)
     {
         while(resetTimer > 0.0f)
         {
-            Debug.Log(resetTimer);
             resetTimer -= Time.deltaTime;
             yield return new WaitForSeconds(0.2f);
         }
@@ -106,6 +104,7 @@ public class GameState : MonoBehaviour {
         }
         ResetPlayers();
         ResetBall(offset);
+        UpdateState(States.PLAYING, null);
     }
 
     private IEnumerator ResetField(GameObject goalObject)
