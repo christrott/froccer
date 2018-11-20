@@ -14,8 +14,12 @@ public enum States
 public class GameState : MonoBehaviour {
     public GameObject player1;
     public GameObject player2;
+    public GameObject ball;
     public States gameState;
-    
+
+    public Vector2 centreCircle;
+
+
     private float _timer;
 
     public float Timer
@@ -30,7 +34,8 @@ public class GameState : MonoBehaviour {
     {
         _timer = 300.0f;
         gameState = States.PLAYING;
-	}
+        centreCircle = ball.transform.position;
+    }
 
     void Update()
     {
@@ -47,7 +52,7 @@ public class GameState : MonoBehaviour {
         }
     }
 
-    public void UpdateState(States newState)
+    public void UpdateState(States newState, GameObject stateSubject)
     {
         States oldState = gameState;
         gameState = newState;
@@ -57,22 +62,65 @@ public class GameState : MonoBehaviour {
             case States.PLAYING:
                 break;
             case States.GOAL:
+                if (oldState == States.GOAL)
+                {
+                    return;
+                }
+                StartCoroutine("ResetField", stateSubject);
                 GoalScored();
+                break;
+            case States.OOB:
+                string playerSide = stateSubject.GetComponent<PlayerController>().name;
+                Vector2 offset = Vector2.zero;
+                if (playerSide == "PlayerFrog")
+                {
+                    offset = new Vector2(0.0f, -6.0f);
+                } else if (playerSide == "AIFrog")
+                {
+                    offset = new Vector2(0.0f, 3.0f);
+                }
+                ResetPlayers();
+                ResetBall(offset);
+                Debug.Log("OOB!");
                 break;
         }
     }
 
     private void GoalScored()
     {
-        ResetPlayers();
         // Do some reset fanciness
-        // Display score
-        UpdateState(States.PLAYING);
+        // Display callout
+        UpdateState(States.PLAYING, null);
+    }
+
+    private IEnumerator ResetField(GameObject goalObject)
+    {
+        ParticleSystem particleSystem = goalObject.GetComponent<ParticleSystem>();
+        while (particleSystem.IsAlive())
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        ResetPlayers();
+        ResetBall(Vector2.zero);
+        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        UpdateState(States.PLAYING, null);
     }
 
     private void ResetPlayers()
     {
         player1.GetComponent<PlayerController>().ResetPosition();
-        player2.GetComponent<PlayerController>().ResetPosition();
+        PlayerController p2c = player2.GetComponent<PlayerController>();
+        if (p2c != null)
+        {
+            player2.GetComponent<PlayerController>().ResetPosition();
+        } else
+        {
+            player2.GetComponent<AIController>().ResetPosition();
+        }
+    }
+
+    private void ResetBall(Vector2 offset)
+    {
+        ball.transform.position = centreCircle + offset;
     }
 }

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goals : MonoBehaviour {
+public class OutOfBounds : MonoBehaviour {
+    public GameObject playerSide;
     public GameObject gameState;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Ball")
         {
-            Debug.Log("Goal!");
-            GetComponent<ParticleSystem>().Emit(30);
-            gameState.GetComponent<GameState>().UpdateState(States.GOAL, gameObject);
+            gameState.GetComponent<GameState>().UpdateState(States.OOB, playerSide);
         }
     }
 }

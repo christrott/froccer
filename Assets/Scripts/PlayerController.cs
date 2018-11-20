@@ -2,7 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerType
+{
+    Player1,
+    Player2,
+    Bot
+}
+
+public enum Team
+{
+    Team1,
+    Team2
+}
+
 public class PlayerController : MonoBehaviour {
+    public PlayerType type;
+    public Team team;
+
     public float playerMoveSpeed = 2.0f;
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
@@ -28,6 +44,14 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (type == PlayerType.Player1 || type == PlayerType.Player2)
+        {
+            PlayerMove();
+        }
+    }
+
+    public void PlayerMove()
+    {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         float rotation = GetRotation(horizontal, vertical);
@@ -62,6 +86,7 @@ public class PlayerController : MonoBehaviour {
 
     public void ResetPosition()
     {
+        Debug.Log("ResetPosition");
         transform.position = startPos;
     }
 
