@@ -21,6 +21,7 @@ public class GameState : MonoBehaviour {
 
 
     private float _timer;
+    private float resetTimer;
 
     public float Timer
     {
@@ -62,28 +63,21 @@ public class GameState : MonoBehaviour {
             case States.PLAYING:
                 break;
             case States.GOAL:
-                if (oldState == States.GOAL)
+                if (oldState == States.PLAYING)
                 {
-                    return;
+                    StartCoroutine("ResetField", stateSubject);
+                    GoalScored();
                 }
-                StartCoroutine("ResetField", stateSubject);
-                GoalScored();
                 break;
             case States.OOB:
-                string playerSide = stateSubject.GetComponent<PlayerController>().name;
-                Vector2 offset = Vector2.zero;
-                if (playerSide == "PlayerFrog")
-                {
-                    offset = new Vector2(0.0f, -6.0f);
-                } else if (playerSide == "AIFrog")
-                {
-                    offset = new Vector2(0.0f, 3.0f);
+                if (oldState == States.PLAYING) {
+                    string playerSide = stateSubject.GetComponent<PlayerController>().name;
+                    resetTimer = 0.25f;
+                    StartCoroutine("OobReset", playerSide);
                 }
-                ResetPlayers();
-                ResetBall(offset);
-                Debug.Log("OOB!");
                 break;
         }
+
     }
 
     private void GoalScored()
@@ -91,6 +85,27 @@ public class GameState : MonoBehaviour {
         // Do some reset fanciness
         // Display callout
         UpdateState(States.PLAYING, null);
+    }
+
+    private IEnumerator OobReset(string playerSide)
+    {
+        while(resetTimer > 0.0f)
+        {
+            Debug.Log(resetTimer);
+            resetTimer -= Time.deltaTime;
+            yield return new WaitForSeconds(0.2f);
+        }
+        Vector2 offset = Vector2.zero;
+        if (playerSide == "PlayerFrog")
+        {
+            offset = new Vector2(0.0f, -6.0f);
+        }
+        else if (playerSide == "AIFrog")
+        {
+            offset = new Vector2(0.0f, 3.0f);
+        }
+        ResetPlayers();
+        ResetBall(offset);
     }
 
     private IEnumerator ResetField(GameObject goalObject)

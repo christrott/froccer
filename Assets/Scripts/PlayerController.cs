@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour {
 
     public void ResetPosition()
     {
-        Debug.Log("ResetPosition");
         transform.position = startPos;
     }
 
