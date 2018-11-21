@@ -16,7 +16,8 @@ public class TimerRenderer : MonoBehaviour {
         float timerValue = gameState.Timer;
         float minutes = Mathf.Floor(timerValue / 60.0f);
         float seconds = Mathf.Floor(timerValue - (minutes * 60));
-        string timerText = minutes.ToString() + ":" + seconds.ToString();
+        string secondsText = (seconds < 10) ? '0' + seconds.ToString() : seconds.ToString();
+        string timerText = minutes.ToString() + ":" + secondsText;
         textMesh.SetText(timerText);
 	}
 }

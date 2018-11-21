@@ -21,6 +21,8 @@ public class GameState : MonoBehaviour {
 
 
     private float _timer;
+    private int _team1Score;
+    private int _team2Score;
     private float resetTimer;
 
     public float Timer
@@ -29,6 +31,24 @@ public class GameState : MonoBehaviour {
             return _timer;
         }
     }
+
+    public int Team1Score
+    {
+        get
+        {
+            return _team1Score;
+        }
+    }
+
+    public int Team2Score
+    {
+        get
+        {
+            return _team2Score;
+        }
+    }
+
+
 
 	// Use this for initialization
 	void Start()
@@ -110,6 +130,7 @@ public class GameState : MonoBehaviour {
     private IEnumerator ResetField(GameObject goalObject)
     {
         ParticleSystem particleSystem = goalObject.GetComponent<ParticleSystem>();
+        AddScore(goalObject.GetComponent<Goals>().goalTeam);
         while (particleSystem.IsAlive())
         {
             yield return new WaitForSeconds(0.2f);
@@ -136,5 +157,17 @@ public class GameState : MonoBehaviour {
     private void ResetBall(Vector2 offset)
     {
         ball.transform.position = centreCircle + offset;
+    }
+
+    private void AddScore(Team teamScoredAgainst)
+    {
+        if (teamScoredAgainst == Team.Team1)
+        {
+            _team2Score++;
+        }
+        else if (teamScoredAgainst == Team.Team2)
+        {
+            _team1Score++;
+        }
     }
 }
