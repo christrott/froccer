@@ -7,6 +7,12 @@ public enum States
     PLAYING,
     GOAL,
     OOB,
+    GAMEOVER
+}
+
+public enum PlayStates
+{
+    NORMAL,
     RUSH,
     OVERTIME
 }
@@ -16,6 +22,7 @@ public class GameState : MonoBehaviour {
     public GameObject player2;
     public GameObject ball;
     public States gameState;
+    public PlayStates playState;
 
     public Vector2 centreCircle;
 
@@ -53,8 +60,9 @@ public class GameState : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
-        _timer = 300.0f;
+        _timer = 50.0f;
         gameState = States.PLAYING;
+        playState = PlayStates.NORMAL;
         centreCircle = ball.transform.position;
     }
 
@@ -69,6 +77,18 @@ public class GameState : MonoBehaviour {
             else
             {
                 _timer -= Time.deltaTime;
+            }
+        }
+
+        if (_timer < 0.0f && gameState == States.PLAYING)
+        {
+            if (_team1Score == _team2Score)
+            {
+                playState = PlayStates.OVERTIME;
+            }
+            else
+            {
+                UpdateState(States.GAMEOVER, null);
             }
         }
     }
@@ -95,6 +115,11 @@ public class GameState : MonoBehaviour {
                     resetTimer = 0.25f;
                     StartCoroutine("OobReset", playerSide);
                 }
+                break;
+            case States.GAMEOVER:
+                // Do some stuff
+                // Particle awesomeness
+                // Callout awesomeness
                 break;
         }
 

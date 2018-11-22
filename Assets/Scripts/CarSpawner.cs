@@ -22,7 +22,7 @@ public class CarSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (gameState.gameState == States.RUSH)
+        if (gameState.playState == PlayStates.RUSH)
         {
             // Spawn twice(?) as many cars
         }
