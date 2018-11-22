@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     public float flipPower = 5.0f;
     public float flipMoveSpeed = 3.0f;
 
-    private float flattenedCooldown = 1.0f;
+    private float flattenedCooldown = 0.6f;
     private float flattenedTimer = 0.0f;
     private bool flattened = false;
     
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour {
             if (flattenedTimer <= 0.0f)
             {
                 flattened = false;
+                animator.ResetTrigger("isFlattened");
             }
         }
         else if (type == PlayerType.Player1 || type == PlayerType.Player2)
@@ -152,10 +153,11 @@ public class PlayerController : MonoBehaviour {
                 collision.collider.GetComponent<Rigidbody2D>().AddForce(hitDirection * flipPower);
             }
         }
-        else if (collision.collider.tag == "Vehicle")
+        else if (collision.collider.tag == "Vehicle" && !flattened)
         {
             flattened = true;
             flattenedTimer = flattenedCooldown;
+            animator.SetTrigger("isFlattened");
         }
     }
 }
