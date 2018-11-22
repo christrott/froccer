@@ -62,9 +62,9 @@ public class GameState : MonoBehaviour {
     {
         if (gameState == States.PLAYING)
         {
-            if (_timer < 5.0f)
+            if (_timer < 5.0f && _timer > 0.0f)
             {
-                _timer -= Time.deltaTime * 0.75f;
+                _timer -= Time.deltaTime * 0.5f;
             }
             else
             {
@@ -157,6 +157,7 @@ public class GameState : MonoBehaviour {
     private void ResetBall(Vector2 offset)
     {
         ball.transform.position = centreCircle + offset;
+        ball.transform.rotation = Quaternion.identity;
     }
 
     private void AddScore(Team teamScoredAgainst)
