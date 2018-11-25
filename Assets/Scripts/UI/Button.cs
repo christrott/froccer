@@ -6,4 +6,9 @@ public class Button : MonoBehaviour {
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

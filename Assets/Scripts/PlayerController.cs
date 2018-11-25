@@ -65,15 +65,26 @@ public class PlayerController : MonoBehaviour {
 
     public void PlayerMove()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        bool pressedShot = false;
+        if (type == PlayerType.Player1)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            pressedShot = Input.GetButton("Fire1");
+            
+        } else if (type == PlayerType.Player2)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal2");
+            vertical = Input.GetAxisRaw("Vertical2");
+            pressedShot = Input.GetButton("Fire1_2");
+        }
         float rotation = GetRotation(horizontal, vertical);
 
         if (flipping)
         {
             EndShot();
         }
-        else if (Input.GetButton("Fire1"))
+        else if (pressedShot)
         {
             TakeShot();
         }

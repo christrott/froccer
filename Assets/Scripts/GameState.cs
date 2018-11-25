@@ -60,7 +60,7 @@ public class GameState : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
-        _timer = 50.0f;
+        _timer = 300.0f;
         gameState = States.PLAYING;
         playState = PlayStates.NORMAL;
         centreCircle = ball.transform.position;

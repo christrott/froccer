@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayField.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/PlayFieldVersus.unity
+    guid: ff29b473b936a0c4a9adb14e071048f0
   m_configObjects: {}
