@@ -24,7 +24,11 @@ public class CarSpawner : MonoBehaviour {
 	void Update () {
         if (gameState.playState == PlayStates.RUSH)
         {
-            // Spawn twice(?) as many cars
+            spawnTimer -= Time.deltaTime * 2;
+            carCount = 10;
+        } else if (gameState.playState == PlayStates.NORMAL)
+        {
+            carCount = 5;
         }
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0.0f)
@@ -32,7 +36,7 @@ public class CarSpawner : MonoBehaviour {
             spawnTimer = spawnCooldown;
             if (cars.Count < carCount)
             {
-                int posIndex = Random.Range(0, 3);
+                int posIndex = Random.Range(0, 4);
                 SpawnCar(spawnPositions[posIndex]);
             }
         }

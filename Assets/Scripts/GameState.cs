@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
-        _timer = 300.0f;
+        _timer = 150.0f;
         gameState = States.PLAYING;
         playState = PlayStates.NORMAL;
         centreCircle = ball.transform.position;
@@ -80,6 +80,16 @@ public class GameState : MonoBehaviour {
             {
                 _timer -= Time.deltaTime;
             }
+
+            if (_timer < 120.0f && _timer > 60.0f)
+            {
+                playState = PlayStates.RUSH;
+            }
+        }
+
+        if (playState == PlayStates.RUSH && _timer <= 60.0f)
+        {
+            playState = PlayStates.NORMAL;
         }
 
         if (_timer < 0.0f && gameState == States.PLAYING)
