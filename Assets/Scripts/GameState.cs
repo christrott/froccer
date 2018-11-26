@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public enum States
 {
@@ -23,6 +24,7 @@ public class GameState : MonoBehaviour {
     public GameObject ball;
     public States gameState;
     public PlayStates playState;
+    public GameObject gameOverMenu;
 
     public Vector2 centreCircle;
 
@@ -120,6 +122,15 @@ public class GameState : MonoBehaviour {
                 // Do some stuff
                 // Particle awesomeness
                 // Callout awesomeness
+                gameOverMenu.SetActive(true);
+                TextMeshProUGUI menuCallout = gameOverMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                if (_team1Score > _team2Score)
+                {
+                    menuCallout.text = "Blue Team Won!";
+                } else
+                {
+                    menuCallout.text = "Red Team Won!";
+                }
                 break;
         }
 
@@ -184,6 +195,7 @@ public class GameState : MonoBehaviour {
     {
         ball.transform.position = centreCircle + offset;
         ball.transform.rotation = Quaternion.identity;
+        ball.GetComponent<Rigidbody2D>().rotation = 0.0f;
     }
 
     private void AddScore(Team teamScoredAgainst)

@@ -11,4 +11,9 @@ public class Button : MonoBehaviour {
     {
         Application.Quit();
     }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
             pressedShot = Input.GetButton("Fire1");
-            
         } else if (type == PlayerType.Player2)
         {
             horizontal = Input.GetAxisRaw("Horizontal2");
