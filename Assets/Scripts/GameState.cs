@@ -111,9 +111,9 @@ public class GameState : MonoBehaviour {
                 break;
             case States.OOB:
                 if (oldState == States.PLAYING) {
-                    string playerSide = stateSubject.GetComponent<PlayerController>().name;
+                    PlayerType playerType = stateSubject.GetComponent<PlayerController>().type;
                     resetTimer = 0.25f;
-                    StartCoroutine("OobReset", playerSide);
+                    StartCoroutine("OobReset", playerType);
                 }
                 break;
             case States.GAMEOVER:
@@ -131,21 +131,22 @@ public class GameState : MonoBehaviour {
         // Display callout
     }
 
-    private IEnumerator OobReset(string playerSide)
+    private IEnumerator OobReset(PlayerType playerType)
     {
+        
         while(resetTimer > 0.0f)
         {
             resetTimer -= Time.deltaTime;
             yield return new WaitForSeconds(0.2f);
         }
         Vector2 offset = Vector2.zero;
-        if (playerSide == "PlayerFrog")
+        if (playerType == PlayerType.Player1)
         {
-            offset = new Vector2(0.0f, -6.0f);
+            offset = new Vector2(0.0f, -4.0f);
         }
-        else if (playerSide == "AIFrog")
+        else if (playerType == PlayerType.Player2 || playerType == PlayerType.Bot)
         {
-            offset = new Vector2(0.0f, 3.0f);
+            offset = new Vector2(0.0f, 4.0f);
         }
         ResetPlayers();
         ResetBall(offset);
