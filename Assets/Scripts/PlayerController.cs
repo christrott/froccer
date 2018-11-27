@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour {
         {
             PlayerMove();
         }
+        else if (type == PlayerType.Bot)
+        {
+            BotMove();
+        }
     }
 
     public void PlayerMove()
@@ -77,7 +81,6 @@ public class PlayerController : MonoBehaviour {
             vertical = Input.GetAxisRaw("Vertical2");
             pressedShot = Input.GetButton("Fire1_2");
         }
-        float rotation = GetRotation(horizontal, vertical);
 
         if (flipping)
         {
@@ -87,6 +90,13 @@ public class PlayerController : MonoBehaviour {
         {
             TakeShot();
         }
+
+        UpdatePlayer();
+    }
+
+    private void UpdatePlayer()
+    {
+        float rotation = GetRotation(horizontal, vertical);
 
         if (horizontal != 0 || vertical != 0)
         {
@@ -151,6 +161,25 @@ public class PlayerController : MonoBehaviour {
         }
 
         return rotation;
+    }
+
+    private void BotMove()
+    {
+        Ball ball = FindObjectOfType<Ball>();
+        Vector3 ballPos = ball.transform.position;
+        Vector3 pos = transform.position;
+        Vector3 heading = ballPos - pos;
+        float distance = heading.magnitude;
+
+        if (distance > 2.0f)
+        {
+            TakeShot();
+        }
+
+        heading = heading / distance;
+        horizontal = heading.x;
+        vertical = heading.y;
+        UpdatePlayer();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
