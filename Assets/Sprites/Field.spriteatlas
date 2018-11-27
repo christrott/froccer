@@ -45,18 +45,27 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 9b0d799ec382385458b223a7e566375d, type: 3}
     - {fileID: 2800000, guid: a40cf9b82fe27e14183feceafd28af79, type: 3}
     - {fileID: 2800000, guid: d0fcfb0f6c4f4c7498a23f646dddf998, type: 3}
+    - {fileID: 2800000, guid: fb97e02498c58b3418cd992c54a02f1e, type: 3}
+    - {fileID: 2800000, guid: aa686e162a52d224eb4ab51b22164c76, type: 3}
+    - {fileID: 2800000, guid: 628a8a5ca519cec47b4591229a8e3bfb, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: fb97e02498c58b3418cd992c54a02f1e, type: 3}
+  - {fileID: 21300000, guid: aa686e162a52d224eb4ab51b22164c76, type: 3}
   - {fileID: 21300000, guid: a40cf9b82fe27e14183feceafd28af79, type: 3}
   - {fileID: 21300000, guid: 9f47dbbb99d9b4347b88fe9d4e7323f7, type: 3}
   - {fileID: 21300000, guid: 42f4c45cb70ae1f42a4aab211ba30fc6, type: 3}
+  - {fileID: 21300000, guid: 628a8a5ca519cec47b4591229a8e3bfb, type: 3}
   - {fileID: 21300000, guid: 9b0d799ec382385458b223a7e566375d, type: 3}
   - {fileID: 21300000, guid: d0fcfb0f6c4f4c7498a23f646dddf998, type: 3}
   m_PackedSpriteNamesToIndex:
+  - FieldLineCornerBL
+  - FieldLineCornerTopRight
   - FieldSquare
   - FieldLineHor
   - FieldLineCorner
+  - FieldLineCornerTL
   - FieldLineVert
   - Road
   m_Tag: Field
