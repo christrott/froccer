@@ -206,6 +206,7 @@ public class GameState : MonoBehaviour {
         ball.transform.position = centreCircle + offset;
         ball.transform.rotation = Quaternion.identity;
         ball.GetComponent<Rigidbody2D>().rotation = 0.0f;
+        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     private void AddScore(Team teamScoredAgainst)
