@@ -115,6 +115,10 @@ MonoBehaviour:
   flipDuration: 0.5
   flipPower: 50
   flipMoveSpeed: 10
+  mixer: {fileID: 24100000, guid: fd5ffb1c5a77bd344bb3cb58dab7d6ab, type: 2}
+  tapClip: {fileID: 8300000, guid: 6ce6945ac053cf245afcbe0c264b88b1, type: 3}
+  hitClip: {fileID: 8300000, guid: b6bda7f5ea995264abb1da9be8490f38, type: 3}
+  runOverClip: {fileID: 8300000, guid: c7f49536706757641b3a2f6a8175d6b4, type: 3}
 --- !u!143 &143285517714037180
 CharacterController:
   m_ObjectHideFlags: 1

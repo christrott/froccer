@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public enum PlayerType
 {
@@ -18,17 +19,19 @@ public enum Team
 public class PlayerController : MonoBehaviour {
     public PlayerType type;
     public Team team;
-
     public float playerMoveSpeed = 2.0f;
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
     public float flipMoveSpeed = 3.0f;
+    public AudioMixer mixer;
+    public AudioClip tapClip;
+    public AudioClip hitClip;
+    public AudioClip runOverClip;
 
+    private Vector2 startPos;
     private float flattenedCooldown = 0.6f;
     private float flattenedTimer = 0.0f;
     private bool flattened = false;
-    
-    private Vector2 startPos;
     private bool flipping = false;
     private float flipTimer = 0.0f;
 
@@ -38,13 +41,31 @@ public class PlayerController : MonoBehaviour {
     private float vertical = 0.0f;
 
     private Animator animator;
+    private AudioSource tapSource;
+    private AudioSource hitSource;
+    private AudioSource runOverSource;
+
+    private void Awake()
+    {
+        AudioMixerGroup sfxGroup = mixer.FindMatchingGroups("Sfx")[0];
+        tapSource = gameObject.AddComponent<AudioSource>();
+        tapSource.clip = tapClip;
+        tapSource.outputAudioMixerGroup = sfxGroup;
+        hitSource = gameObject.AddComponent<AudioSource>();
+        hitSource.clip = hitClip;
+        hitSource.outputAudioMixerGroup = sfxGroup;
+        runOverSource = gameObject.AddComponent<AudioSource>();
+        runOverSource.clip = runOverClip;
+        runOverSource.outputAudioMixerGroup = sfxGroup;
+    }
 
     // Use this for initialization
-    void Start () {
+    private void Start ()
+    {
         startPos = transform.position;
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -184,12 +205,24 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ball" && flipping)
+        if (collision.collider.tag == "Ball")
         {
             if (flipping)
             {
                 Vector2 hitDirection = new Vector2(horizontal, vertical);
                 collision.collider.GetComponent<Rigidbody2D>().AddForce(hitDirection * flipPower);
+                if (!hitSource.isPlaying)
+                {
+                    hitSource.Play();
+                }
+            } else
+            {
+                Vector2 hitDirection = new Vector2(horizontal, vertical);
+                collision.collider.GetComponent<Rigidbody2D>().AddForce(hitDirection * 4.0f);
+                if (!tapSource.isPlaying)
+                {
+                    tapSource.Play();
+                }
             }
         }
         else if (collision.collider.tag == "Vehicle" && !flattened)
@@ -197,6 +230,10 @@ public class PlayerController : MonoBehaviour {
             flattened = true;
             flattenedTimer = flattenedCooldown;
             animator.SetTrigger("isFlattened");
+            if (!runOverSource.isPlaying)
+            {
+                runOverSource.Play();
+            }
         }
     }
 }
