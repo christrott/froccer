@@ -171,10 +171,10 @@ public class PlayerController : MonoBehaviour {
         Vector3 heading = ballPos - pos;
         float distance = heading.magnitude;
 
-        if (distance > 2.0f)
+        /*if (distance < 1.0f)
         {
             TakeShot();
-        }
+        }*/
 
         heading = heading / distance;
         horizontal = heading.x;
