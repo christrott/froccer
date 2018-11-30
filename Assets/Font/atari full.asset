@@ -11,19 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: atari full
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -1239697924
   material: {fileID: 21509292635554934}
-  materialHashCode: 0
+  materialHashCode: 1580307959
   fontAssetType: 2
   m_fontInfo:
     Name: Atari Font Full Version
     PointSize: 20
-    Scale: 0
+    Scale: 1
     CharacterCount: 99
     LineHeight: 20
     Baseline: 0
     Ascender: 18
-    CapHeight: 0
+    CapHeight: 18
     Descender: -3
     CenterLine: 0
     SuperscriptOffset: 18
@@ -33,7 +33,7 @@ MonoBehaviour:
     UnderlineThickness: 0.9375
     strikethrough: 5.4545455
     strikethroughThickness: 0.9375
-    TabWidth: 0
+    TabWidth: 100
     Padding: 5
     AtlasWidth: 512
     AtlasHeight: 512
@@ -42,10 +42,10 @@ MonoBehaviour:
   - id: 32
     x: 5
     y: 507
-    width: 0
-    height: 0
+    width: 10
+    height: 21
     xOffset: 0
-    yOffset: 0
+    yOffset: 18
     xAdvance: 10
     scale: 1
   - id: 33

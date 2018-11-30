@@ -1,0 +1,10 @@
+Engine:
+Unity
+TextMeshPro
+
+Art:
+Aseprite
+
+Audio:
+Wolfram Tones	http://tones.wolfram.com/generate/G1w02MHT5jeoLE152X5dpvDwapsqXDgsPy4HViCSneIHM
+Bfxr		
