@@ -4380,6 +4380,11 @@ Prefab:
       propertyPath: m_Volume
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114904127750776560, guid: a387fd4a6da93a0408129da6c8ab4d4f,
+        type: 2}
+      propertyPath: whistleClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d52c5f97d33d95449b74666ef1d1728d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a387fd4a6da93a0408129da6c8ab4d4f, type: 2}
   m_IsPrefabAsset: 0

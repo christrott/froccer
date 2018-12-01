@@ -25,7 +25,7 @@ public class GameState : MonoBehaviour {
     public States gameState;
     public PlayStates playState;
     public GameObject gameOverMenu;
-
+    public AudioClip whistleClip;
     public Vector2 centreCircle;
 
 
@@ -34,6 +34,7 @@ public class GameState : MonoBehaviour {
     private int _team2Score;
     private float resetTimer;
     private AudioSource musicPlayer;
+    private AudioSource whistleSource;
 
     public float Timer
     {
@@ -68,6 +69,8 @@ public class GameState : MonoBehaviour {
         playState = PlayStates.NORMAL;
         centreCircle = ball.transform.position;
         musicPlayer = GetComponent<AudioSource>();
+        whistleSource = gameObject.AddComponent<AudioSource>();
+        whistleSource.clip = whistleClip;
     }
 
     void Update()
@@ -121,12 +124,14 @@ public class GameState : MonoBehaviour {
             case States.GOAL:
                 if (oldState == States.PLAYING)
                 {
+                    whistleSource.Play();
                     StartCoroutine("ResetField", stateSubject);
                     GoalScored();
                 }
                 break;
             case States.OOB:
                 if (oldState == States.PLAYING) {
+                    whistleSource.Play();
                     PlayerType playerType = stateSubject.GetComponent<PlayerController>().type;
                     resetTimer = 0.25f;
                     StartCoroutine("OobReset", playerType);
@@ -136,6 +141,7 @@ public class GameState : MonoBehaviour {
                 // Do some stuff
                 // Particle awesomeness
                 // Callout awesomeness
+                whistleSource.Play();
                 gameOverMenu.SetActive(true);
                 TextMeshProUGUI menuCallout = gameOverMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
                 if (_team1Score > _team2Score)
@@ -145,6 +151,7 @@ public class GameState : MonoBehaviour {
                 {
                     menuCallout.text = "Red Team Won!";
                 }
+                whistleSource.Play();
                 break;
         }
 
