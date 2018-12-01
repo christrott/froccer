@@ -33,6 +33,7 @@ public class GameState : MonoBehaviour {
     private int _team1Score;
     private int _team2Score;
     private float resetTimer;
+    private AudioSource musicPlayer;
 
     public float Timer
     {
@@ -66,6 +67,7 @@ public class GameState : MonoBehaviour {
         gameState = States.PLAYING;
         playState = PlayStates.NORMAL;
         centreCircle = ball.transform.position;
+        musicPlayer = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -84,12 +86,14 @@ public class GameState : MonoBehaviour {
             if (_timer < 120.0f && _timer > 60.0f)
             {
                 playState = PlayStates.RUSH;
+                musicPlayer.pitch = 1.1f;
             }
         }
 
         if (playState == PlayStates.RUSH && _timer <= 60.0f)
         {
             playState = PlayStates.NORMAL;
+            musicPlayer.pitch = 1.0f;
         }
 
         if (_timer < 0.0f && gameState == States.PLAYING)
