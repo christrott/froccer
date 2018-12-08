@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
     public float flipMoveSpeed = 3.0f;
+    public float flipCooldown = 2.0f;
+
     public AudioMixer mixer;
     public AudioClip tapClip;
     public AudioClip hitClip;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour {
     private bool flattened = false;
     private bool flipping = false;
     private float flipTimer = 0.0f;
+    private float flipCooldownTimer = 0.0f;
 
     private CharacterController characterController;
     private float lastRotation = 0.0f;
@@ -69,6 +72,10 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (flipCooldownTimer > 0.0f)
+        {
+            flipCooldownTimer -= Time.deltaTime;
+        }
         if (flattened)
         {
             flattenedTimer -= Time.deltaTime;
@@ -158,6 +165,7 @@ public class PlayerController : MonoBehaviour {
             animator.ResetTrigger("isFlipping");
             flipping = false;
         }
+        flipCooldownTimer = flipCooldown;
     }
 
     private float GetRotation(float horizontal, float vertical)
@@ -190,16 +198,21 @@ public class PlayerController : MonoBehaviour {
         Vector3 ballPos = ball.transform.position;
         Vector3 pos = transform.position;
         Vector3 heading = ballPos - pos;
-        float distance = heading.magnitude;
+        float ballDistance = heading.magnitude;
 
-        /*if (distance < 1.0f)
+        if (ballDistance < 1.0f && !flipping && flipCooldownTimer <= 0.0f)
         {
+            Debug.Log("Take Shot");
             TakeShot();
-        }*/
+        }
+        else if (flipping)
+        {
+            EndShot();
+        }
 
-        heading = heading / distance;
-        horizontal = heading.x;
-        vertical = heading.y;
+        heading = heading / ballDistance;
+        horizontal = Mathf.Round(heading.x);
+        vertical = Mathf.Round(heading.y);
         UpdatePlayer();
     }
 
