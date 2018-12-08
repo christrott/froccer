@@ -16,6 +16,12 @@ public enum Team
     Team2
 }
 
+public enum BotState
+{
+    Fallback,
+    Attack
+}
+
 public class PlayerController : MonoBehaviour {
     public PlayerType type;
     public Team team;
@@ -23,7 +29,6 @@ public class PlayerController : MonoBehaviour {
     public float flipDuration = 0.5f;
     public float flipPower = 5.0f;
     public float flipMoveSpeed = 3.0f;
-    public float flipCooldown = 2.0f;
 
     public AudioMixer mixer;
     public AudioClip tapClip;
@@ -48,6 +53,13 @@ public class PlayerController : MonoBehaviour {
     private AudioSource hitSource;
     private AudioSource runOverSource;
 
+    // AI vars
+    public Goals targetGoal;
+    public Goals defensiveGoal;
+    public float flipCooldown = 2.0f;
+    private Ball ball;
+    private BotState botState;
+
     private void Awake()
     {
         AudioMixerGroup sfxGroup = mixer.FindMatchingGroups("Sfx")[0];
@@ -60,6 +72,7 @@ public class PlayerController : MonoBehaviour {
         runOverSource = gameObject.AddComponent<AudioSource>();
         runOverSource.clip = runOverClip;
         runOverSource.outputAudioMixerGroup = sfxGroup;
+        ball = FindObjectOfType<Ball>();
     }
 
     // Use this for initialization
@@ -194,15 +207,27 @@ public class PlayerController : MonoBehaviour {
 
     private void BotMove()
     {
-        Ball ball = FindObjectOfType<Ball>();
         Vector3 ballPos = ball.transform.position;
+        Vector3 goalPos = targetGoal.transform.position;
+        Vector3 defendPos = defensiveGoal.transform.position;
         Vector3 pos = transform.position;
         Vector3 heading = ballPos - pos;
         float ballDistance = heading.magnitude;
+        Vector3 goalHeading = goalPos - pos;
+        float goalDistance = goalHeading.magnitude;
 
-        if (ballDistance < 1.0f && !flipping && flipCooldownTimer <= 0.0f)
+        if (ballPos.y > pos.y && botState == BotState.Attack)
         {
-            Debug.Log("Take Shot");
+            botState = BotState.Fallback;
+        }
+
+        if (ballPos.y < pos.y - 1.0f && botState == BotState.Fallback)
+        {
+            botState = BotState.Attack;
+        }
+
+        if (ballDistance < 0.5f && !flipping && flipCooldownTimer <= 0.0f)
+        {
             TakeShot();
         }
         else if (flipping)
@@ -210,9 +235,40 @@ public class PlayerController : MonoBehaviour {
             EndShot();
         }
 
-        heading = heading / ballDistance;
-        horizontal = Mathf.Round(heading.x);
-        vertical = Mathf.Round(heading.y);
+        if (botState == BotState.Attack)
+        {
+            if (ballDistance < 0.5f)
+            {
+                heading = goalHeading / goalDistance;
+            }
+            else
+            {
+                heading = heading / ballDistance;
+            }
+            horizontal = Mathf.Round(heading.x);
+            vertical = Mathf.Round(heading.y);
+        }
+        else if (botState == BotState.Fallback)
+        {
+            float ballDiff = ballPos.x - pos.x;
+            Debug.Log(ballDiff);
+            
+            if (ballDiff > 0.0f && ballDiff < 1.0f)
+            {
+                horizontal = -1.0f;
+            }
+            else if (ballDiff < 0.0f && ballDiff > -1.0f)
+            {
+                horizontal = 1.0f;
+            }
+            else
+            {
+                horizontal = 0.0f;
+            }
+
+            vertical = 1.0f;
+        }
+
         UpdatePlayer();
     }
 

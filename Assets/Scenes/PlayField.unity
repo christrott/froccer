@@ -3470,6 +3470,12 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &998225297 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114574519815941816, guid: e953c5bbdf5980a4b90af605fb258544,
+    type: 2}
+  m_PrefabInternal: {fileID: 497631174}
+  m_Script: {fileID: 11500000, guid: f6d4b7d7e4072b14b8fb8e5039dbd511, type: 3}
 --- !u!1 &1008792819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,6 +3855,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc5f85d00a23a3740bd38f1420619407, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1178579991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114902818055337734, guid: 2f05883a5f5aa564584389d33d7b9b7f,
+    type: 2}
+  m_PrefabInternal: {fileID: 641917977}
+  m_Script: {fileID: 11500000, guid: f6d4b7d7e4072b14b8fb8e5039dbd511, type: 3}
 --- !u!1 &1201505647
 GameObject:
   m_ObjectHideFlags: 0
@@ -4741,6 +4753,9 @@ MonoBehaviour:
   tapClip: {fileID: 8300000, guid: 6ce6945ac053cf245afcbe0c264b88b1, type: 3}
   hitClip: {fileID: 8300000, guid: b6bda7f5ea995264abb1da9be8490f38, type: 3}
   runOverClip: {fileID: 8300000, guid: c7f49536706757641b3a2f6a8175d6b4, type: 3}
+  targetGoal: {fileID: 998225297}
+  defensiveGoal: {fileID: 1178579991}
+  flipCooldown: 2
 --- !u!4 &1596918557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4236873534803968, guid: a829dba0b3272ed4c96695e4a5b2eab5,
